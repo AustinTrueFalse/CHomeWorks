@@ -1,58 +1,83 @@
-﻿using CHomeWorks;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
+using static Program;
 
 
 class Program
 {
-
-    static ILogger Logger { get; set; }
+    public class User
+    {
+        public string Login { get; set; }
+        public string Name { get; set; }
+        public bool IsPremium { get; set; }
+    }
 
     static void Main(string[] args)
     {
-        Logger = new Logger();
-
-        var calc = new Calc(Logger);
-
-        calc.Sum();
-
-        Console.ReadKey();
+        List<User> users = new List<User>
+        {
+            new User()
+            {
+                Login = "user1",
+                Name = "Peter",
+                IsPremium = true,
+            },
+            new User()
+            {
+                Login = "user2",
+                Name = "Alex",
+                IsPremium = false,
+            },
+            new User()
+            {
+                Login = "user3",
+                Name = "Jennifer",
+                IsPremium = false,
+            }
+        };
+        CheckUser(users);
     }
 
-}
-
-public interface ILogger
-{
-    void Event(string message);
-    void Error(string message);
-}
-
-public class Logger : ILogger
-{
-    public void Error(string message)
+    static void CheckUser(List<User> users)
     {
-        Console.BackgroundColor = ConsoleColor.Red;
-        Console.ForegroundColor = ConsoleColor.Black;
-        Console.WriteLine(message);
+        foreach(var user in users)
+        {
+            if (!user.IsPremium)
+            {
+                Greeting(user.Name);
+                ShowAds();
+            }
+            else
+            {
+                Greeting(user.Name);
+            }
+        }
     }
-    public void Event(string message)
+
+    static void Greeting(string name)
     {
-        Console.BackgroundColor = ConsoleColor.Blue;
-        Console.WriteLine(message);
+        Console.WriteLine($"Привет, {name}!");
+    }
+
+    static void ShowAds()
+    {
+        Console.WriteLine("Посетите наш новый сайт с бесплатными играми free.games.for.a.fool.com");
+        // Остановка на 1 с
+        Thread.Sleep(1000);
+
+        Console.WriteLine("Купите подписку на МыКомбо и слушайте музыку везде и всегда.");
+        // Остановка на 2 с
+        Thread.Sleep(2000);
+
+        Console.WriteLine("Оформите премиум-подписку на наш сервис, чтобы не видеть рекламу.");
+        // Остановка на 3 с
+        Thread.Sleep(3000);
     }
 
 
 }
-
-
-public interface ICalc
-{
-    void Sum();
-}
-
-
 
 
 
