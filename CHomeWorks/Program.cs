@@ -7,12 +7,9 @@ using System.Threading;
 
 class Program
 {
-
     public static void Main(string[] args)
     {
-        ListTest.ListTestMethod();
-        LinkedTest.LinkedTestMethod();
+        Frequency.FrequencyMethod();
     }
-
 
 }

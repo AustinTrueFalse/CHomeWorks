@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Diagnostics.Runtime.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,25 +9,68 @@ using System.Threading.Tasks;
 
 namespace CHomeWorks
 {
-    public class ListTest
+    public class Frequency
     {
-        public static void ListTestMethod()
+        public static void FrequencyMethod()
         {
-            //Timer
-            var stopWatch = Stopwatch.StartNew();
+            string path = "C:\\Users\\craas\\Text.txt";
 
-            //List
-            var listTest = new List<string>();
+            var wordList = new List<string>();
+            var wordCountDictionary = new Dictionary<string, int>();
 
-            //ReadFile
-            string text = File.ReadAllText("C:\\Users\\craas\\Text.txt");
-            char[] delimiters = new char[] { ' ', '\r', '\n' };
-            var words = text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            var wordValues = new List<int>();
 
-            //ListInput
-            listTest.AddRange(words);
+            List<int> maxTen = new List<int>();
+            List<string> frequentlWords = new List<string>();
 
-            Console.WriteLine($"Время на создание массива из файла: {stopWatch.Elapsed.TotalMilliseconds}");           
+            int minFromMaxTen;
+
+            using (var sr = new StreamReader(path))
+            {
+                var text = sr.ReadToEnd().ToLower();
+                
+                text = new string(text.Where(c => !char.IsPunctuation(c)).ToArray());
+
+                string[] words = text.Split(new char[] { ' '}, StringSplitOptions.RemoveEmptyEntries);
+
+                wordList.AddRange(words);
+
+                for (int i = 1; i < wordList.Count; i++)
+                {
+                    if (!wordCountDictionary.ContainsKey(wordList[i]))
+                    {
+                        wordCountDictionary.Add(wordList[i], 1);
+                    }
+                    else
+                    {
+                        wordCountDictionary[wordList[i]]++;
+                    }
+                }
+
+                foreach (var value in wordCountDictionary.Values)
+                {
+                    wordValues.Add(value);
+                }
+
+                wordValues.Sort();
+                wordValues.Reverse();
+
+                for (int i = 0; i < 10; i++)
+                {
+                    maxTen.Add(wordValues[i]);
+                }
+
+                minFromMaxTen = maxTen.Min();
+
+                var orderDictionary = wordCountDictionary.OrderByDescending(x => x.Value).Where(x => x.Value >= minFromMaxTen);
+
+                foreach (var value in orderDictionary)
+                {
+                    Console.WriteLine(value.Key);
+                }
+
+            }   
+                
         }
     }
 }
