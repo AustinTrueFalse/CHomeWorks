@@ -1,5 +1,4 @@
-﻿
-using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Concurrent;
 using System.Numerics;
@@ -20,24 +19,10 @@ class Program
                new Classroom { Students = {"Bulat", "Alex", "Galina"}, }
            };
 
-
         var allStudents = GetAllStudents(classes);
 
-
         Console.WriteLine(string.Join(" ", allStudents));
-
-
-        //foreach (var classroom in classes)
-        //{
-        //    foreach (var student in classroom.Students)
-        //    {
-        //        Console.WriteLine(student);
-        //    }
-        //}
     }
-
-
-
 
     static string[] GetAllStudents(Classroom[] classes)
     {
