@@ -6,43 +6,35 @@ using System.Runtime.InteropServices;
 using System.Threading;
 
 
-
 class Program
 {
 
     static void Main(string[] args)
     {
-        var classes = new[]
-        {
-               new Classroom { Students = {"Evgeniy", "Sergey", "Andrew"}, },
-               new Classroom { Students = {"Anna", "Viktor", "Vladimir"}, },
-               new Classroom { Students = {"Bulat", "Alex", "Galina"}, }
-           };
 
-        var allStudents = GetAllStudents(classes);
-
-        Console.WriteLine(string.Join(" ", allStudents));
     }
 
-    static string[] GetAllStudents(Classroom[] classes)
+    public class Calculator
     {
-        var result = new List<string>();
-
-        foreach (var classroom in classes)
+        public int Additional(int a, int b)
         {
-            foreach (var student in classroom.Students)
-            {
-                result.Add(student);
-            }
+            return a + b;
         }
 
-        return result.ToArray();
+        public int Subtraction(int a, int b)
+        {
+            return a - b;
+        }
 
-    }
+        public int Miltiplication(int a, int b)
+        {
+            return a * b;
+        }
 
-    public class Classroom
-    {
-        public List<string> Students = new List<string>();
+        public int Division(int a, int b)
+        {
+            return a / b;
+        }
     }
 
 
