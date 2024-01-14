@@ -53,9 +53,6 @@ namespace CHomeWorks.Tests
             Assert.That(calculator.Division(200, 10) == 20);
         }
 
-       
-        
-
 
     }
 
